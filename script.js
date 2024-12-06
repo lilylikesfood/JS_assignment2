@@ -29,7 +29,7 @@ class WishManager {
         console.log("Wish Data:", this.wishData);
     }
 
-    // Delete a wish and move to deleted data
+    // delete a wish and move to deleted data
     deleteWish(key) {
         if (this.wishData[key]) {
             this.deletedData[key] = this.wishData[key];
@@ -38,14 +38,14 @@ class WishManager {
         }
     }
 
-    // Get all active wish data
+    // get all undeleted wish data
     getAllWishes() {
         const list = Object.values(this.wishData);
         const listCopy=[...list];
         return listCopy;
     }
 
-    // Merge active and deleted data
+    // merge active and deleted data
     getAllData() {
         this.allData={ ...this.wishData, ...this.deletedData};
        return this.allData;
@@ -62,12 +62,12 @@ class UIManager {
         this.wish = wishManager;
     }
 
-    // Initialize form event listener
+    // event listener
     eventListener() {
         this.wishForm.addEventListener("submit", (sub) => this.add(sub));
     }
 
-    // Add wish to the UI and data manager
+    // add wish to the UI and data manager
     add(sub) {
         sub.preventDefault();
         const wishText = this.wishInput.value.trim();
@@ -79,34 +79,34 @@ class UIManager {
         const now = Date.now();
         this.wish.addWish(now, wishText);
 
-        // Render the wish in the UI
+        // add new wish
         const newWish = this.createWishElement(now, wishText);
         this.wishList.appendChild(newWish);
 
-        // Clear input field
+        // clear input field
         this.wishInput.value = "";
     }
 
-  // Method to delete a wish
+  // delete a wish
 deleteWish(key, wishElement) {
     this.wish.deleteWish(key); // Update the data
     wishElement.remove(); // Update the UI
 }
 
-// Create a wish element in the UI
+// create a wish element in the UI
 createWishElement(key, wishText) {
     const newWish = document.createElement("li");
     newWish.textContent = wishText;
 
-    // Create and append remove button
+    // create and append remove button
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
     removeButton.classList.add("remove-btn");
     newWish.appendChild(removeButton);
 
-    // Add event listener for removing the wish
+    // add event listener for removing the wish
     removeButton.addEventListener("click", () => {
-        this.deleteWish(key, newWish); // Call the deleteWish method
+        this.deleteWish(key, newWish); // call the deleteWish method
     });
 
     return newWish;
