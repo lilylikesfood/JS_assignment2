@@ -59,4 +59,19 @@ li{
 
 .remove-btn{
     background-color: #dc3545;
+    width: 80px;
 }
+
+#button{
+    display: flex;
+    justify-content: space-between;
+}
+button{
+    height: 30px;
+    width: 60px;
+    margin-left: 5px;
+}
+
+#inspirationalQuoteButton{width: 200px;
+margin: 0;}
+
