@@ -1,3 +1,21 @@
+// JSON to store data
+const inspirationType = `{
+    "1":"family",
+    "2":"friends",
+    "3":"career",
+    "4":"self-promotion"
+}`;
+
+
+const inspiration = `{
+    "family":"Visit intimate family menbers!",
+    "friends":"Have a party!",
+    "career":"Earn more than $100,000 a year!",
+    "self-promotion":"Get a higher degree!"
+}`;
+
+
+
 class WishManager {
     constructor() {
         this.wishData = {};
@@ -95,20 +113,6 @@ createWishElement(key, wishText) {
 }
 }
 
-const inspirationType = `{
-    "1":"family",
-    "2":"friends",
-    "3":"career",
-    "4":"self-promotion"
-}`;
-
-
-const inspiration = `{
-    "family":"Visit intimate family menbers!",
-    "friends":"Have a party!",
-    "career":"Earn more than $100,000 a year!",
-    "self-promotion":"Get a higher degree!"
-}`;
 
 
 class InspirationManager {
@@ -119,12 +123,12 @@ class InspirationManager {
         this.inspirationalQuoteButton = document.getElementById("inspirationalQuoteButton");
     }
 
-    // Initialize button listener
+    // quote event listener
     initQuoteListener() {
         this.inspirationalQuoteButton.addEventListener("click", () => this.fetchWithAsync());
     }
 
-    // Fetch inspirational quote
+    // fetch inspirational quote
     async fetchWithAsync() {
         this.quoteDisplay.textContent = "Loading message...";
         try {
@@ -136,7 +140,7 @@ class InspirationManager {
         }
     }
 
-    // Simulate fetching message with a Promise
+    // Asynchronous operations using Promises
     fetchMessage() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -150,7 +154,7 @@ class InspirationManager {
         });
     }
 
-    // Get a random inspirational quote
+    // get a random inspirational quote
     getInspiration() {
         const index = Math.floor(Math.random() * 4) + 1;
         const key = this.inspirationType[index];
@@ -171,11 +175,12 @@ class WishApp {
     }
 }
 
+// inheritance
 class ExtendedWishApp extends WishApp {
     constructor() {
         super(); // call the constructor of the superclass
         this.sendButton = document.getElementById("send");
-        this.sendListener();
+       
     }
 
     sendListener() {
@@ -184,10 +189,10 @@ class ExtendedWishApp extends WishApp {
 
     sendWish(event) {
         event.preventDefault();
-        // Clear the input field
+        // clear the input 
         this.uiManager.wishInput.value = "";
 
-        // Clear the wish list
+        // clear the wish list
         while (this.uiManager.wishList.firstChild) {
             this.uiManager.wishList.removeChild(this.uiManager.wishList.firstChild);
         }
@@ -196,9 +201,15 @@ class ExtendedWishApp extends WishApp {
         console.log("data log: ",all);
     }
 
+    init() {
+        this.uiManager.eventListener();
+        this.inspirationManager.initQuoteListener();
+        this.sendListener();
+    }
+
 }
 
-// Initialize the app
+// initialize the app
 const extendedWishApp = new ExtendedWishApp();
 extendedWishApp.init();
 
